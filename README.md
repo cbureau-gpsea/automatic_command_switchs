@@ -29,13 +29,13 @@ print(netmiko.__version__)
 
 To add a switch, you must change the field ***"ip"*** in switch list, by name or ip adress of your switch. You can add as many switchs as you want.
 
-![Add switch](https://github.com/cbureau-gpsea/automatic_commands_switchs/img/switch.png)
+![Add switch](https://github.com/cbureau-gpsea/automatic_commands_switchs/blob/main/img/switch.png)
 
 ## Add a command
 
 To add a command, you must change the field ***"command"*** by your command and the field ***"response"*** by the response your order could expect. If your command isn't waiting for a response, leave the field empty.
 
-![Add command](https://github.com/cbureau-gpsea/automatic_commands_switchs/img/command.png)
+![Add command](https://github.com/cbureau-gpsea/automatic_commands_switchs/blob/main/img/command.png)
 
 # List of compatible switchs
 
