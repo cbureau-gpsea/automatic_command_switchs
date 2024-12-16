@@ -5,16 +5,14 @@ import getpass
 
 # Liste des switchs avec leurs noms
 switch_list = [
-    # {"ip": "SW-RDC-10G", "device_type": "cisco_ios", "username": "", "password": ""},
-    # {"ip": "SW-TEST3", "device_type": "cisco_ios", "username": "", "password": ""},
-    {"ip": "SW-TEST1", "device_type": "cisco_ios", "username": "", "password": ""},
-    {"ip": "SW-TEST2", "device_type": "cisco_ios", "username": "", "password": ""},
+    {"ip": "NAME OR IP OF SWITCH 1", "device_type": "cisco_ios", "username": "", "password": ""},
+    {"ip": "NAME OR IP OF SWITCH 2", "device_type": "cisco_ios", "username": "", "password": ""},
 ]
 
 # Commandes à lancer sur les switchs
 commands = [
-    {"command": "show running-config", "response": ""},
-    {"command": "write memory", "response": "y"},
+    {"command": "COMMAND 1", "response": ""},
+    {"command": "COMMAND 2", "response": "YES"},
 ]
 
 # Fonction pour envoyer les commandes sur le switch
