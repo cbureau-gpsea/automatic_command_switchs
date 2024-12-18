@@ -172,8 +172,13 @@ def main():
     for switch in switch_list:
         config_switch(switch)
 
+# Fonction pour supprimer les espaces, tabulations, sauts de ligne et caractères spéciaux
 def remove_whitespace(text):
     return text.replace(" ", "").replace("\t", "").replace("\n", "").replace("\xa0", "").replace("\u2007", "").replace("\u202F", "")
+
+# Fonction pour supprimer les cases vides
+def remove_empty_rows(rows):
+    return [[cell for cell in row if cell] for row in rows if any(row)]
 
 # Fonction pour parser le fichier CSV
 def parse(name_file):
@@ -184,7 +189,9 @@ def parse(name_file):
             raise FileNotFoundError(f"Le fichier {name_file} n'existe pas.")
         with open(name_file, 'r') as file:
             reader = csv.reader(file, delimiter='\t')
-            for row in reader:
+            rows = list(reader)
+            rows = remove_empty_rows(rows)
+            for row in rows:
                 if len(row) > 0 and row[0]:
                     if row[0] != "" and row[0][0] != "#":
                         row[0] = remove_whitespace(row[0])
