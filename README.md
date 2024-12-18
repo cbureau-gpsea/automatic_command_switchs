@@ -27,7 +27,7 @@ print(netmiko.__version__)
 
 ## Add a switch or command with a file
 
-To add a switch or command with a file, you can modify the .csv file. The first column is is the name or ip address of the switches, he second is for commands and the last one is for possible responses to commands. You can add a "#" to comment out a box that the script should not take into account. Example :
+To add a switch or command with a file, you can modify the .csv file. The first column is is the name or ip address of the switches, the second is for commands and the last one is for possible responses to commands. You can add a "#" to comment out a box that the script should not take into account. Example :
 
 ![Add switch/command](https://github.com/cbureau-gpsea/automatic_commands_switches/blob/main/img/with_file.png)
 
