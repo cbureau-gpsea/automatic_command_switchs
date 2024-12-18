@@ -1,0 +1,3 @@
+#SW-ONE;show ip int;
+SW-TWO;show running-config;
+;write memory;yes
