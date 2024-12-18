@@ -5,6 +5,9 @@ import getpass
 import os
 import csv
 
+global switch_list
+global commands
+
 # Liste des switchs avec leurs noms
 switch_list = [
     {"ip": "NAME OR IP OF SWITCH 1", "device_type": "cisco_ios", "username": "", "password": ""},
@@ -191,6 +194,9 @@ def detect_delimiter(file_path):
 
 # Fonction pour parser le fichier CSV
 def parse(name_file):
+    global switch_list
+    global commands
+
     switch_list = []
     commands = []
     delimiter = detect_delimiter(name_file)
