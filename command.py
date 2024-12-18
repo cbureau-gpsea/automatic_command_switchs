@@ -2,6 +2,8 @@ from netmiko import ConnectHandler, NetmikoAuthenticationException
 import re
 import sys
 import getpass
+import os
+import csv
 
 # Liste des switchs avec leurs noms
 switch_list = [
@@ -170,5 +172,45 @@ def main():
     for switch in switch_list:
         config_switch(switch)
 
+def remove_whitespace(text):
+    return text.replace(" ", "").replace("\t", "").replace("\n", "").replace("\xa0", "").replace("\u2007", "").replace("\u202F", "")
+
+# Fonction pour parser le fichier CSV
+def parse(name_file):
+    switch_list = []
+    commands = []
+    try:
+        if not os.path.isfile(name_file):
+            raise FileNotFoundError(f"Le fichier {name_file} n'existe pas.")
+        with open(name_file, 'r') as file:
+            reader = csv.reader(file, delimiter='\t')
+            for row in reader:
+                if len(row) > 0 and row[0]:
+                    if row[0] != "" and row[0][0] != "#":
+                        row[0] = remove_whitespace(row[0])
+                        switch_list.append({"ip": row[0], "device_type": "cisco_ios", "username": "", "password": ""})
+                if len(row) > 1 and row[1]:
+                    if row[1] != "" and row[1][0] != "#":
+                        if len(row) > 2 and row[2]:
+                            if row[2] != "" and row[2][0] != "#":
+                                commands.append({"command": row[1], "response": row[2]})
+                            else:
+                                commands.append({"command": row[1], "response": ""})
+                        else:
+                            commands.append({"command": row[1], "response": ""})
+        main()
+    except FileNotFoundError as e:
+        print(e)
+    except ValueError as e:
+        print(e)
+    except Exception as e:
+        print(f"Une erreur est survenue: {e}")
+
 if __name__ == "__main__":
-    sys.exit(main())
+    if len(sys.argv) == 2:
+        sys.exit(parse(sys.argv[1]))
+    elif len(sys.argv) == 1:
+        sys.exit(main())
+    else:
+        print("Erreur: Trop d'arguments !")
+        exit(1)
