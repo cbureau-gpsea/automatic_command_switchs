@@ -144,7 +144,7 @@ def enter_password():
     global user
 
     while True:
-        user = input("Entrez le nom votre nom d'utilisateur: ")
+        user = input("Entrez votre nom d'utilisateur: ")
         password =  getpass.getpass("Entrez votre mot de passe: ")
 
         if password == "exit" or user == "exit":
