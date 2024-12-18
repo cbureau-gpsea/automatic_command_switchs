@@ -121,7 +121,7 @@ def config_switch(switch):
             print(f"Erreur sur {switch['ip']}: {e}")
         return
 
-# Fonction pour tester le mot de passe administrateur des switchs
+# Fonction pour tester le mot de passe sur les switchs
 def test_password(switch, user, password):
     switch['username'] = user
     switch['password'] = password
@@ -135,7 +135,7 @@ def test_password(switch, user, password):
     except Exception as e:
         return 84
 
-# Fonction pour entrer le mot de passe administrateur
+# Fonction pour entrer le mot de passe
 def enter_password():
     global password
     global user
@@ -152,9 +152,9 @@ def enter_password():
             repsonse = test_password(switch_list[0], user, password)
 
             if repsonse == False:
-                print("Erreur: Impossible de se connecter sur les switchs business avec le mot de passe actuel !")
+                print("Erreur: Impossible de se connecter sur les switchs avec ces identifiants !")
             elif repsonse == 84:
-                print("Erreur: Impossible de joindre ce switch !")
+                print(f"Erreur: Impossible de joindre le switch {switch_list[0]['ip']}, pour tester le mot de passe !")
                 user = None
                 password = None
                 break
@@ -180,15 +180,26 @@ def remove_whitespace(text):
 def remove_empty_rows(rows):
     return [row for row in rows if any(row[1:])]
 
+# Fonction pour détecter le délimiteur du fichier CSV
+def detect_delimiter(file_path):
+    with open(file_path, 'r') as file:
+        sample = file.read(1024)
+        delimiters = [',', ';', '\t']
+        delimiter_counts = {delimiter: sample.count(delimiter) for delimiter in delimiters}
+        detected_delimiter = max(delimiter_counts, key=delimiter_counts.get)
+        return detected_delimiter
+
 # Fonction pour parser le fichier CSV
 def parse(name_file):
     switch_list = []
     commands = []
+    delimiter = detect_delimiter(name_file)
+
     try:
         if not os.path.isfile(name_file):
             raise FileNotFoundError(f"Le fichier {name_file} n'existe pas.")
         with open(name_file, 'r') as file:
-            reader = csv.reader(file, delimiter='\t')
+            reader = csv.reader(file, delimiter=delimiter)
             rows = list(reader)
             rows = remove_empty_rows(rows)
             for row in rows:
@@ -211,7 +222,7 @@ def parse(name_file):
     except ValueError as e:
         print(e)
     except Exception as e:
-        print(f"Une erreur est survenue: {e}")
+        print(f"Une erreur est survenue lors de la lecture de votre fichier: {e}")
 
 if __name__ == "__main__":
     if len(sys.argv) == 2:
