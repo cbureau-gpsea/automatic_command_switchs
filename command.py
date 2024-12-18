@@ -178,7 +178,7 @@ def remove_whitespace(text):
 
 # Fonction pour supprimer les cases vides
 def remove_empty_rows(rows):
-    return [[cell for cell in row if cell] for row in rows if any(row)]
+    return [row for row in rows if any(row[1:])]
 
 # Fonction pour parser le fichier CSV
 def parse(name_file):
