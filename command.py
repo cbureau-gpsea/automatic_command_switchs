@@ -38,8 +38,7 @@ def command_switch(connection, model):
                     output_first = connection.send_command_timing(command['command'])
                     output = re.sub(r".\[\d+m|.\[D|.\[K|.\[1m|.\[0m", "", output_first)
                     print(f"{output}")
-                    if command['command'] == "reload":
-                        output_bad = connection.send_command_timing(command['response'])
+                    output_bad = connection.send_command_timing(command['response'])
             else:
                 if command['command'] == "show ip int brief" or command['command'] == "show ip int":
                     if model == "CBS250" or model == "SG350XG":
